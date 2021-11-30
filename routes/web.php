@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\DomainController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +16,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Home')->with('filterValue', 5);
 });
+Route::get('/home/{filterValue}', [HomeController::class, 'index']);
+Route::get('/Domain', [DomainController::class,'index']);
+Route::get('/Domain/{slug}',[DomainController::class,'index']);
