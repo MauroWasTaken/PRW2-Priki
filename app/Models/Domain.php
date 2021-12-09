@@ -19,4 +19,14 @@ class Domain extends Model
     {
         return $this->hasMany(Practice::class);
     }
+    public function publishedPractices()
+    {
+        return $this->practices->filter(function($p){
+            return $p->publicationState->slug == "PUB";
+        });
+    }
+    public static function getSlugs()
+    {
+        return Domain::all()->pluck("slug");
+    }
 }

@@ -1,8 +1,7 @@
 @extends('layout')
 @section('content')
-    <h1>Roles</h1>
-    {{ $filterValue }}
-    @foreach (\App\Models\Practice::all() as $practice)
-        <p>{{$practice->description}}<br>{{$practice->domain->name}}</p>
-    @endforeach
+<div class="w-10/12 md:w-7/12 lg:6/12 mx-auto relative py-20">
+    <h1 class="text-3xl text-center font-bold text-blue-500 mb-3">Best Practices</h1>
+    <livewire:home-practice />
+</div>
 @endsection
