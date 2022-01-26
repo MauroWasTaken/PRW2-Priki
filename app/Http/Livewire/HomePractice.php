@@ -14,7 +14,7 @@ class HomePractice extends Component
     public function render()
     {
         $publication = PublicationState::where('slug', 'PUB')->get();
-        $this->practices = Practice::publishedModifiedOnes($this->numberOfDays);
+        $this->practices = Practice::publishedModifiedOnes((int)$this->numberOfDays);
         return view('livewire.home-practice');
     }
 }

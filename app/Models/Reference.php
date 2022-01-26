@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Reference extends Model
 {
     use HasFactory;
-    public $timestamps=false;
+    public $timestamps = false;
     protected $fillable = [
-        'description'
+        'description',
+        'url'
     ];
 }

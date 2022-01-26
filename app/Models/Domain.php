@@ -19,9 +19,13 @@ class Domain extends Model
     {
         return $this->hasMany(Practice::class);
     }
+    public function practicesSortedByStatus()
+    {
+        return $this->hasMany(Practice::class)->orderBy("publication_state_id");
+    }
     public function publishedPractices()
     {
-        return $this->practices->filter(function($p){
+        return $this->practices->filter(function ($p) {
             return $p->publicationState->slug == "PUB";
         });
     }
