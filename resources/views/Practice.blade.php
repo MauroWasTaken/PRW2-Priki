@@ -33,7 +33,7 @@
                             </label>
                             <input
                                 class="mb-3 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="reason" name="reason" maxlength="40" minlength="3" type="text">
+                                id="reason" name="reason" type="text">
                             <input type="submit" value="enregistrer">
                         </div>
                     </form>
