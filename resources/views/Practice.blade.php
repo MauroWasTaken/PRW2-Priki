@@ -69,7 +69,7 @@
     </div>
     @if ($practice->changelogs->count() > 0)
         <h2 class="text-2xl font-bold text-blue-500 mb-3">Historique de modifications</h2>
-        @foreach ($practice->changelogs as $changelog)
+        @foreach ($practice->changelogs->reverse() as $changelog)
             <div
                 class="transform shadow-xl transition cursor-pointer  relative flex items-center px-6 py-4 bg-gray-100 text-black rounded mb-3 flex-col md:flex-row space-y-4 md:space-y-0">
                 <div class="flex-auto">
