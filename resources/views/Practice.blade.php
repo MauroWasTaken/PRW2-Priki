@@ -11,7 +11,7 @@
     @if (Auth::User())
         @if (Auth::User()->can('update', $practice))
             <div class="flex w-full">
-                <div>
+                <div x-data="{ dropdownOpen: false }">
                     <div @click="dropdownOpen = !dropdownOpen"
                         class="accordion-header cursor-pointer transition flex space-x-5">
                         <h2 class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
