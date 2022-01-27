@@ -16,7 +16,8 @@
 </head>
 
 <body>
-    Mauro Santos
+    <div class="text-2xl font-bold text-blue-500 mb-3"> Mauro Santos</div>
+
     <x-navbar />
     @if ($errors->any())
         <div role="alert">
