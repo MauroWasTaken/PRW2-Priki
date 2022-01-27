@@ -28,12 +28,12 @@
                                 class="mb-3 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                 id="title" name="title" maxlength="40" minlength="3" type="text"
                                 value="{{ $practice->name }}" required>
-                            <label class="mt-2 block text-gray-700 text-sm font-bold mb-2" for="Reason">
+                            <label class="mt-2 block text-gray-700 text-sm font-bold mb-2" for="reason">
                                 Raison du changement
                             </label>
                             <input
                                 class="mb-3 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                id="Reason" name="Reason" maxlength="40" minlength="3" type="text">
+                                id="reason" name="reason" maxlength="40" minlength="3" type="text">
                             <input type="submit" value="enregistrer">
                         </div>
                     </form>
@@ -67,4 +67,19 @@
             @endif
         @endif
     </div>
+    @if ($practice->changelogs->count() > 0)
+        <h2 class="text-2xl font-bold text-blue-500 mb-3">Historique de modifications</h2>
+        @foreach ($practice->changelogs as $changelog)
+            <div
+                class="transform shadow-xl transition cursor-pointer  relative flex items-center px-6 py-4 bg-gray-100 text-black rounded mb-3 flex-col md:flex-row space-y-4 md:space-y-0">
+                <div class="flex-auto">
+                    <h1 class="text-xl font-bold rounded">{{ $changelog->user->name }}</h1>
+                    <h1 class="text-xl font-bold rounded">{{ $changelog->updated_at->isoFormat('LL') }}</h1>
+                    <h1 class="text-lg">{{ $changelog->reason }}</h1>
+                    <h3>{{ $changelog->previously }}</h3>
+                </div>
+            </div>
+            <p><br></p>
+        @endforeach
+    @endif
 @endsection

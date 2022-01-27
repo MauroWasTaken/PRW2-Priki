@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Practice;
 use App\Models\Domain;
+use App\Models\Changelogs;
 use App\Models\PublicationState;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -54,6 +55,9 @@ class PracticeController extends Controller
     public function update(Request $request,$practiceId)
     {
         $practice = Practice::where('id', '=', $practiceId)->first();
+        if(!Auth::User()){
+            abort(403);
+        }
         if(Auth::User()->cannot("update",$practice)){
             abort(403);
         }
@@ -63,6 +67,7 @@ class PracticeController extends Controller
         if(!Practice::titleAvailable($request["title"])){
             return redirect()->back()->withErrors("Error: Title already used");
         }
+        Changelogs::create(['reason'=>$request["reason"],'previously'=>$practice->name,'user_id'=>Auth::User()->id,'practice_id'=>$practice->id]);
         $practice->name = $request["title"];
         $practice->save();
         return redirect()->back();

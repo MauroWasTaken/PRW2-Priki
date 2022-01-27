@@ -57,4 +57,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Opinion::class, "user_opinion")->withPivot('comment', 'points');
     }
+    public function changelogs()
+    {
+        return $this->hasmany(Changelogs::class);
+    }
 }

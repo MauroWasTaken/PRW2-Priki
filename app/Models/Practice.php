@@ -29,6 +29,10 @@ class Practice extends Model
     {
         return $this->hasMany(Opinion::class);
     }
+    public function changelogs()
+    {
+        return $this->hasMany(Changelogs::class);
+    }
     public function userHasOpinion(User $user)
     {
         return $this->hasMany(Opinion::class)->where("user_id", "=", $user->id)->get()->Count() > 0;
