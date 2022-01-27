@@ -14,6 +14,7 @@
                     class="transform shadow-xl transition cursor-pointer hover:-translate-y-2 relative flex items-center px-6 py-4 bg-gray-100 text-black rounded mb-3 flex-col md:flex-row space-y-4 md:space-y-0">
                     <!-- Content that showing in the box -->
                     <div class="flex-auto">
+                        <h1 class="text-xl font-bold rounded">{{ $practice->name }}</h1>
                         @if ($mod == true)
                             <h1 class="text-xl font-bold rounded">{{ $practice->publicationState->name }}</h1>
                         @endif

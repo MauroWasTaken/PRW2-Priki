@@ -16,6 +16,7 @@
 </head>
 
 <body>
+    Mauro Santos
     <x-navbar />
     @if ($errors->any())
         <div role="alert">
