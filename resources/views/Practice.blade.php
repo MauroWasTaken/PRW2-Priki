@@ -17,12 +17,14 @@
                 Opinions
             </button>
         </a>
-        @if($practice->userHasOpinion(Auth::User())&&$practice->publicationState->slug=="PRO")
-        <a href="/practice/{{ $practice->id }}/publish">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                publier
-            </button>
-        </a>
+        @if (Auth::User())
+            @if ($practice->userHasOpinion(Auth::User()) && $practice->publicationState->slug == 'PRO')
+                <a href="/practice/{{ $practice->id }}/publish">
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        publier
+                    </button>
+                </a>
+            @endif
         @endif
     </div>
 @endsection

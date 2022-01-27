@@ -19,6 +19,25 @@
                 <h3 @click="dropdownOpen = false">Creation Date: {{ $opinion->created_at->isoFormat('LL') }}</h3>
                 <h3 @click="dropdownOpen = false" class="mt-2 mb-2">{{ $opinion->created_at->isoFormat('LL') }}</h3>
                 <h2 @click="dropdownOpen = false">References</h2>
+                @if ($opinion->comments->isNotEmpty())
+                    <em class="far fa-comments"></em>
+                    <span class="has-text-success">
+                        {{ $opinion->upVotes() }} - <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                        </svg>
+                    </span>
+                    <span class="has-text-danger ">
+                        {{ $opinion->downVotes() }} - <svg xmlns="http://www.w3.org/2000/svg" class="inline-block h-5 w-5"
+                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                        </svg>
+                    </span>
+                @else
+                    0 <em class="far fa-comments"></em>
+                @endif
                 @foreach ($opinion->references as $reference)
                     <h4>
                         @if (!empty($reference->url))
@@ -49,20 +68,37 @@
                                 </a>
                             </div>
                         @endforeach
-                        @if(Auth::User())
-                        <form method="POST" action="/practice/{{ $practice->id }}/opinion/{{ $opinion->id }} ">
-                            {{ csrf_field() }}
-                            <div x-show="dropdownOpen"
-                                class="right-0 bg-white rounded-md shadow-lg overflow-hidden z-20 my-2" style="width:100%;">
-                                <label class="mt-2 block text-gray-700 text-sm font-bold mb-2" for="comment">
-                                    Comment
-                                </label>
-                                <input
-                                    class="mb-3 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                                    id="comment" name="comment" maxlength="1000" type="textarea" placeholder="comment">
+                        @if (Auth::User())
+                            <form method="POST" action="/practice/{{ $practice->id }}/opinion/{{ $opinion->id }} ">
+                                {{ csrf_field() }}
+                                <div x-show="dropdownOpen"
+                                    class="right-0 bg-white rounded-md shadow-lg overflow-hidden z-20 my-2"
+                                    style="width:100%;">
+                                    <label class="mt-2 block text-gray-700 text-sm font-bold mb-2" for="comment">
+                                        Comment
+                                    </label>
+                                    <input
+                                        class="mb-3 shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                        id="comment" name="comment" maxlength="1000" type="textarea" placeholder="comment">
+                                    <div class="flex justify-center">
+                                        <div class="form-check form-check-inline">
+                                            <input
+                                                class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                                type="radio" name="voteRadioOptions" id="upVote" value="1">
+                                            <label class="form-check-label inline-block text-gray-800"
+                                                for="upvote">upvote</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input
+                                                class="form-check-input form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                                                type="radio" name="voteRadioOptions" id="downVote" value="-1">
+                                            <label class="form-check-label inline-block text-gray-800"
+                                                for="downvote">downvote</label>
+                                        </div>
+                                    </div>
                                     <input type="submit" value="enregistrer">
-                            </div>
-                        </form>
+                                </div>
+                            </form>
                         @endif
                     </div>
                 </div>

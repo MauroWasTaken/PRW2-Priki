@@ -17,7 +17,7 @@ class OpinionController extends Controller
         } else if (strlen($comment) <= 0 || strlen($comment) == null) {
             return redirect()->back()->withErrors(['msg' => 'Please enter a comment.']);
         }
-        $opinion->comments()->attach(Auth::user(), array("comment" => $request['comment']));
+        $opinion->comments()->attach(Auth::user(), array("comment" => $request['comment'],"points"=>$request['voteRadioOptions']));
         return redirect()->back();
     }
 }

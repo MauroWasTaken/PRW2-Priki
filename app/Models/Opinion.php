@@ -11,14 +11,21 @@ class Opinion extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-
     }
     public function comments()
     {
-        return $this->belongsToMany(User::class,"user_opinion")->withPivot('comment','points');
+        return $this->belongsToMany(User::class, "user_opinion")->withPivot('comment', 'points');
     }
     public function references()
     {
-        return $this->belongsToMany(Reference::class,"opinion_reference")->withPivot('id');
+        return $this->belongsToMany(Reference::class, "opinion_reference")->withPivot('id');
+    }
+    public function upVotes()
+    {
+        return $this->belongsToMany(User::class, "user_opinion")->withPivot('comment', 'points')->where('points','>',0)->count();
+    }
+    public function downVotes()
+    {
+        return $this->belongsToMany(User::class, "user_opinion")->withPivot('comment', 'points')->where('points','<',0)->count();
     }
 }
