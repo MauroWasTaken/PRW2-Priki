@@ -53,7 +53,10 @@ class practicePolicy
      */
     public function update(User $user, Practice $practice)
     {
-        //
+        if ($user->can("moderator") || $user->id == $practice->user->id) {
+            return true;
+        }
+        return false;
     }
     public function publish(User $user, Practice $practice)
     {

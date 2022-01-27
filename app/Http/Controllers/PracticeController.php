@@ -6,6 +6,7 @@ use App\Models\Practice;
 use App\Models\Domain;
 use App\Models\PublicationState;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Auth;
 
 class PracticeController extends Controller
@@ -49,5 +50,21 @@ class PracticeController extends Controller
             return redirect()->back()->withErrors("Error: Practice not found");
         }
         return view('practiceOpinions')->with(["practice" => $practice]);
+    }
+    public function update(Request $request,$practiceId)
+    {
+        $practice = Practice::where('id', '=', $practiceId)->first();
+        if(Auth::User()->cannot("update",$practice)){
+            abort(403);
+        }
+        if(Str::length($request["title"])<3 | Str::length($request["title"])>40 ){
+            return redirect()->back()->withErrors("Error: Please check that the title is longer than 3 characters and shorter than 40");
+        }
+        if(!Practice::titleAvailable($request["title"])){
+            return redirect()->back()->withErrors("Error: Title already used");
+        }
+        $practice->name = $request["title"];
+        $practice->save();
+        return redirect()->back();
     }
 }

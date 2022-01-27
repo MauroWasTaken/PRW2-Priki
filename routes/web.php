@@ -35,3 +35,5 @@ Route::get('/practice/{id}/publish',[PracticeController::class,'publish']);
 Route::get('/practice/{practiceId}/opinions',[PracticeController::class,'OpenPracticeOpinionsPage']);
 Route::resource('/references', ReferenceController::class)->middleware(['auth']);
 Route::post('/practice/{practiceId}/opinion/{opinionId}', [OpinionController::class,'addComment'])->name("opinions.addComment")->middleware(['auth']);
+Route::get('/practice/{practiceId}/update',function(){abort(403);});
+Route::post('/practice/{practiceId}/update',[PracticeController::class,'update']);
